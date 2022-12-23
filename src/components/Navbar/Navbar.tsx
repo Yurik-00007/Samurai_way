@@ -8,25 +8,28 @@ type NavbarType = {}
 export const Navbar = (props: NavbarType) => {
     return <nav className={s.nav}>
         <div className={s.item}>
-            <NavLink to={'/profile'} className={navData => navData.isActive ? s.active : s.item}>Profile</NavLink>
+            <NavLink to={'/profile'} activeClassName={s.activeLink}>Profile</NavLink>
         </div>
         {/*
         <div className={s.item}><a href={'/profile'}>Profile</a></div>
 */}
         <div className={s.item}>
-            <NavLink to={'/dialogs'} className={navData => navData.isActive ? s.active : s.item}>Messages</NavLink>
+            <NavLink to={'/dialogs'} activeClassName={s.activeLink}>Messages</NavLink>
         </div>
         <div className={s.item}>
-            <NavLink to={'/users'} className={navData => navData.isActive ? s.active : s.item}>Users</NavLink>
+            <NavLink to={'/users'} activeClassName={s.activeLink}>Users</NavLink>
         </div>
         <div className={s.item}>
-            <NavLink to={'/news'} className={navData => navData.isActive ? s.active : s.item}>News</NavLink>
+            <NavLink to={'/news'} activeClassName={s.activeLink}>News</NavLink>
         </div>
         <div className={s.item}>
-            <NavLink to={'/music'} className={navData => navData.isActive ? s.active : s.item}>Music</NavLink>
+            <NavLink to={'/music'} activeClassName={s.activeLink}>Music</NavLink>
         </div>
         <div className={s.item}>
+            <NavLink to={'/settings'} activeClassName={s.activeLink}>Settings</NavLink>
+            {/*
             <NavLink to={'/settings'} className={navData => navData.isActive ? s.active : s.item}>Settings</NavLink>
+*/}
         </div>
 
         <div className={s.item}>

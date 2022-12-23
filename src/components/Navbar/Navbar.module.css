@@ -15,11 +15,11 @@
     font-size: 20px;
 }
 
-.item {
+.item a {
     color: white;
 
 }
 
-.active {
+.item a.activeLink {
     color: goldenrod;
 }

@@ -1,3 +1,6 @@
+import actions from "redux-form/lib/actions";
+import {store} from "./redux-store";
+
 type PhotosType = {
     "small": string
     "large": string
@@ -30,7 +33,7 @@ export type InitialStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-
+    isFetching: boolean
 }
 
 //let initialState: InitialStateType
@@ -39,11 +42,16 @@ let initialState: InitialStateType = {
 
     users: [],
     pageSize: 5,
-    totalUsersCount: 3,
-    currentPage: 3
-
+    totalUsersCount: 54,
+    currentPage: 1,
+    isFetching: false
 }
-
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes) => {
 
@@ -61,27 +69,30 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {...state, currentPage: action.payload.currentPage}
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.payload.count}
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.payload.isFetching}
         default:
             return state;
     }
 }
 
-type ActionTypes = followACType | unFollowACType | setUsersACType | setCurrentPageACType | setTotalUsersCountACType
-
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-
-export type followACType = ReturnType<typeof followAC>
-export type unFollowACType = ReturnType<typeof unFollowAC>
-export type setUsersACType = ReturnType<typeof setUsersAC>
-export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+type ActionTypes = followACType
+    | unFollowACType
+    | setUsersACType
+    | setCurrentPageACType
+    | setTotalUsersCountACType
+    | toggleIsFetchingACType
 
 
-export const followAC = (userId: string) => {
+export type followACType = ReturnType<typeof follow>
+export type unFollowACType = ReturnType<typeof unFollow>
+export type setUsersACType = ReturnType<typeof setUsers>
+export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+
+
+export const follow = (userId: string) => {
     return {
         type: FOLLOW,
         payload: {
@@ -89,7 +100,7 @@ export const followAC = (userId: string) => {
         }
     } as const
 }
-export const unFollowAC = (userId: string)/*: AddPostType*/ => {
+export const unFollow = (userId: string)/*: AddPostType*/ => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -99,7 +110,7 @@ export const unFollowAC = (userId: string)/*: AddPostType*/ => {
     } as const
 }
 
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
@@ -107,7 +118,7 @@ export const setUsersAC = (users: UserType[]) => {
         }
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         payload: {
@@ -115,11 +126,19 @@ export const setCurrentPageAC = (currentPage: number) => {
         }
     } as const
 }
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return {
         type: SET_TOTAL_USERS_COUNT,
         payload: {
             count: totalCount
+        }
+    } as const
+}
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        payload: {
+            isFetching
         }
     } as const
 }

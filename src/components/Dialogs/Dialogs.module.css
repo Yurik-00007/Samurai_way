@@ -4,21 +4,26 @@
 
 }
 
-.dialogItems{
+.dialogItems {
     padding: 10px;
 }
 
-.active {
+a {
+    color: black;
+    text-decoration: none;
+
+}
+
+a.activeLink {
     color: gold;
     font-weight: bold;
-    text-decoration:none;
 
 }
 
 .dialog {
     padding: 3px;
     color: white;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .messages {
@@ -29,7 +34,7 @@
 
 }
 
-.dialog img{
+.dialog img {
     width: 50px;
     height: 50px;
     border-radius: 50%;

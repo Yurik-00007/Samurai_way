@@ -25,7 +25,7 @@ export const Friends = () => {
                 <img
                     src={'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'}/>
                 <NavLink to={`/friends/${f.id}`}
-                         className={navData => navData.isActive ? s.active : s.friend}>{f.name}</NavLink>
+                         activeClassName={s.activeLink}>{f.name}</NavLink>
             </div>
         )
     })

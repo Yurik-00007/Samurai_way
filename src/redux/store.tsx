@@ -1,4 +1,4 @@
-import {AddPostACType, profileReducer, UpdateNewPostTextACType} from "./profile-reducer";
+import {AddPostACType, profileReducer, UpdateNewPostTextACType, UserProfileType} from "./profile-reducer";
 import {AddMessageACType, dialogsReducer, UpdateNewMessageDialogTextACType} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
@@ -27,6 +27,7 @@ type PostsType = {
 type PofilePageType = {
     posts: PostsType[],
     newPostText: string
+    userProfile: UserProfileType
 }
 
 type FriendsType = {
@@ -90,6 +91,27 @@ let store: StoreType = {
                 {id: 4, message: 'Dada?', likesCount: 17},
             ],
             newPostText: 'it-kamasutra.com',
+            userProfile: {
+                "aboutMe": "",
+                "contacts": {
+                    "facebook": "",
+                    "website": null,
+                    "vk": "",
+                    "twitter": "",
+                    "instagram": "",
+                    "youtube": null,
+                    "github": "",
+                    "mainLink": null
+                },
+                "lookingForAJob": true,
+                "lookingForAJobDescription": "",
+                "fullName": "",
+                "userId": 2,
+                "photos": {
+                    "small": "",
+                    "large": ""
+                }
+            }
         },
         sidebar: {
             friends: [
