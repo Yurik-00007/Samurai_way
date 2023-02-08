@@ -14,6 +14,8 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {usersAPI} from "../../api/api";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -115,7 +117,24 @@ export let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps,
+export default compose<React.ComponentType>(
+    connect(mapStateToProps,
+        {
+            //followAC,
+            //unFollowAC,
+            //setUsersAC,
+            //toggleIsFetchingAC,
+            //setTotalUsersCountAC,
+            setCurrentPageAC,
+            toggleFetchingProgressAC,
+            getUsersTC: getUsersThunkCreator,
+            followTC,
+            unFollowTC
+        }),
+    withAuthRedirect
+)(UsersContainer)
+
+/*export default withAuthRedirect(connect(mapStateToProps,
 
     {
         //followAC,
@@ -128,5 +147,5 @@ export default connect(mapStateToProps,
         getUsersTC: getUsersThunkCreator,
         followTC,
         unFollowTC
-    })(UsersContainer)
+    })(UsersContainer))*/
 

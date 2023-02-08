@@ -3,6 +3,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import React from "react";
 import {Redirect} from "react-router-dom";
+import {DialogsPageType} from "./DialogsContainer";
 
 export type DialogsType = {
     id: number
@@ -14,7 +15,7 @@ export type MessagesType = {
     message: string | undefined
 }
 
-export type DialogsPageType = {
+/*export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newText: string
@@ -22,7 +23,7 @@ export type DialogsPageType = {
     updateNewMessageDialogText: (newText: string) => void
     isAuth: boolean
 
-}
+}*/
 
 
 export const Dialogs = (props: DialogsPageType) => {
@@ -59,9 +60,6 @@ export const Dialogs = (props: DialogsPageType) => {
             //props.dispatch(updateNewMessageDialogTextActionCreater(text))
 
         }
-    }
-    if (!props.isAuth) {
-        return <Redirect to={'/login'}/>
     }
     return (
         <div className={s.dialogs}>

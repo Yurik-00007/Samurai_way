@@ -19,11 +19,10 @@ import {ProfilePageType} from "./ProfileContainer";
 
 }*/
 export const Profile = (props: ProfilePageType) => {
-    /*
-        if (!props.isAuth) {
-            return <Redirect to={'/login'}/>
-        }
-    */
+    /*        if (!props.isAuth) {
+                return <Redirect to={'/login'}/>
+            }*/
+    //debugger
     return <div>
         <ProfileInfo profile={props.userProfile}/>
         <MyPostsContainer/>
