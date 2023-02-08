@@ -1,4 +1,6 @@
 import {AddMessageACType, UpdateNewMessageDialogTextACType} from "./dialogs-reducer";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 /*type PofilePageType = {
     posts: PostsType[]
@@ -109,7 +111,7 @@ export type AddPostACType = ReturnType<typeof addPostActionCreater>
 
 export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextActionCreater>
 
-export type SetUserProfileACType = ReturnType<typeof setUserProfile>
+export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 
 export const addPostActionCreater = ()/*: AddPostType*/ => {
     return {
@@ -121,7 +123,16 @@ export const updateNewPostTextActionCreater = (text: string) => ({
     newText: text
 } as const)
 
-export const setUserProfile = (userProfile: UserProfileType) => ({
+export const setUserProfileAC = (userProfile: UserProfileType) => ({
     type: SET_USER_PROFILE, userProfile
 } as const)
+export const getUserProfileTC = (userId: number) =>
+    (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(res => {
+                dispatch(setUserProfileAC(res))
+                // debugger
+            });
+
+    }
 
