@@ -1,6 +1,6 @@
 import {AddMessageACType, UpdateNewMessageDialogTextACType} from "./dialogs-reducer";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 /*type PofilePageType = {
     posts: PostsType[]
@@ -42,17 +42,23 @@ export type InitialStateType = {
     posts: PostsType[]
     newPostText: string
     userProfile: UserProfileType
+    status: string
 }
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_STATUS = 'SET-STATUS'
+const UPDATE_STATUS = 'UPDATE-STATUS'
 
-type ActionTypes = AddPostACType
+type ActionTypes =
+    | AddPostACType
     | UpdateNewPostTextACType
     | AddMessageACType
     | UpdateNewMessageDialogTextACType
     | SetUserProfileACType
+    | SetStatusACType
+    | UpdateStatusACType
 
 let initialState: InitialStateType = {
     posts: [
@@ -82,12 +88,13 @@ let initialState: InitialStateType = {
             "small": "",
             "large": ""
         }
-    }
+    },
+    status: '',
 }
 
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes) => {
-
+    //debugger
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -101,6 +108,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return {...state, newPostText: action.newText};
         case  SET_USER_PROFILE:
             return {...state, userProfile: action.userProfile};
+        case SET_STATUS:
+            return {...state, status: action.status};
+        case UPDATE_STATUS:
+            //debugger
+            return {...state, status: action.status};
         default:
             return state;
     }
@@ -112,6 +124,9 @@ export type AddPostACType = ReturnType<typeof addPostActionCreater>
 export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextActionCreater>
 
 export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
+
+export type SetStatusACType = ReturnType<typeof setStatusAC>
+export type UpdateStatusACType = ReturnType<typeof updateStatusAC>
 
 export const addPostActionCreater = ()/*: AddPostType*/ => {
     return {
@@ -126,12 +141,41 @@ export const updateNewPostTextActionCreater = (text: string) => ({
 export const setUserProfileAC = (userProfile: UserProfileType) => ({
     type: SET_USER_PROFILE, userProfile
 } as const)
+
+export const setStatusAC = (status: string) => ({
+    type: SET_STATUS, status
+} as const)
+
+export const updateStatusAC = (status: string) => ({
+    type: UPDATE_STATUS, status
+} as const)
+
+
 export const getUserProfileTC = (userId: number) =>
     (dispatch: Dispatch) => {
         usersAPI.getProfile(userId)
             .then(res => {
                 dispatch(setUserProfileAC(res))
                 // debugger
+            });
+
+    }
+export const getStatusTC = (userId: number) =>
+    (dispatch: Dispatch) => {
+        profileAPI.getStatus(userId)
+            .then(res => {
+                dispatch(setStatusAC(res))
+                //debugger
+            });
+
+    }
+export const updateStatusTC = (status: string) =>
+    (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(res => {
+                if (res.data.resultCode === 0)
+                    dispatch(updateStatusAC(status))
+                //debugger
             });
 
     }

@@ -2,10 +2,12 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: UserProfileType
-
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
@@ -15,10 +17,10 @@ export const ProfileInfo = (props: ProfileInfoType) => {
     } else
         return (
             <div>
-                <div>
+                {/* <div>
                     <img alt={'pic'}
                          src={'https://tinypng.com/images/social/website.jpg'}/>
-                </div>
+                </div>*/}
                 <div className={s.discriptionBlock}>
                     <img src={props.profile.photos.large}/>
                     <div>Обо мне: {props.profile.aboutMe}</div>
@@ -36,9 +38,13 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     {/*
                     <div>{props.profile.aboutMe}</div>
                     <div>{props.profile.contacts}</div>
-*/}
+
                     ava+discription
+                    */}
+
                 </div>
+
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
 
             </div>
         )

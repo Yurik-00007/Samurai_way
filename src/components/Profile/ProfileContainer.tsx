@@ -1,10 +1,9 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfileTC, UserProfileType} from "../../redux/profile-reducer";
+import {getStatusTC, getUserProfileTC, updateStatusTC, UserProfileType} from "../../redux/profile-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 
@@ -23,12 +22,15 @@ class ProfileContainer extends React.Component<OwnProps> {
 
     componentDidMount() {
         let userId: number = +this.props.match.params.userId
+
         //console.log(typeof userId)
         if (!userId) {
-            userId = 2
+            userId = 26920//2
         }
         //debugger
         this.props.getUserProfileTC(userId)
+        this.props.getStatusTC(userId)
+
         //axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
         // usersAPI.getProfile(userId)
         //     .then(data => {
@@ -39,7 +41,7 @@ class ProfileContainer extends React.Component<OwnProps> {
     }
 
     render() {
-        console.log(this)
+        //console.log(this)
         /*   if (!this.props.isAuth) {
                return <Redirect to={'/login'}/>
            }*/
@@ -51,11 +53,14 @@ class ProfileContainer extends React.Component<OwnProps> {
 
 export type MapStatePropsType = {
     userProfile: UserProfileType
+    status: string
     // isAuth: boolean
 }
 
 type MapDispatchPropsType = {
     getUserProfileTC: (userId: number) => void
+    getStatusTC: (userId: number) => void
+    updateStatusTC: (status: string) => void
 }
 
 
@@ -66,14 +71,15 @@ type OwnProps = RouteComponentProps<{ "userId": string }> & ProfilePageType
 
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     userProfile: state.profilePage.userProfile,
+    status: state.profilePage.status
     //isAuth: state.auth.isAuth
 
 })
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfileTC}),
+    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
-    withAuthRedirect,
+    //withAuthRedirect,
 )
 (ProfileContainer)
 

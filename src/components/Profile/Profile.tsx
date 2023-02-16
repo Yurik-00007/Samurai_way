@@ -24,7 +24,7 @@ export const Profile = (props: ProfilePageType) => {
             }*/
     //debugger
     return <div>
-        <ProfileInfo profile={props.userProfile}/>
+        <ProfileInfo profile={props.userProfile} status={props.status} updateStatus={props.updateStatusTC}/>
         <MyPostsContainer/>
     </div>
 }

@@ -28,6 +28,7 @@ type PofilePageType = {
     posts: PostsType[],
     newPostText: string
     userProfile: UserProfileType
+    status: string
 }
 
 type FriendsType = {
@@ -111,7 +112,8 @@ let store: StoreType = {
                     "small": "",
                     "large": ""
                 }
-            }
+            },
+            status: ''
         },
         sidebar: {
             friends: [
